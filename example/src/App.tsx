@@ -1,18 +1,28 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-gps-settings';
+import { StyleSheet, View, Text, Button } from 'react-native';
+import { isGPSEnabled, openGPSSettings } from 'react-native-gps-settings';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
 
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const checkGPSStatus = () => {
+    isGPSEnabled()
+      .then((response) => {
+        if (response == true) {
+          console.log("GPS already enabled")
+        } else {
+          openGPSSettings()
+        }
+      })
+  }
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Button
+        onPress={checkGPSStatus}
+        title='Check GPS'>
+        <Text>Check GPS</Text>
+      </Button>
     </View>
   );
 }

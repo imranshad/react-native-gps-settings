@@ -15,6 +15,10 @@ const GpsSettings = NativeModules.GpsSettings  ? NativeModules.GpsSettings  : ne
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return GpsSettings.multiply(a, b);
+
+export async function isGPSEnabled() {
+  return GpsSettings.isGPSEnabled();
+}
+export async function openGPSSettings() {
+  return GpsSettings.openGPSSettings();
 }
