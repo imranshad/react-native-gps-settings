@@ -9,11 +9,34 @@ npm install react-native-gps-settings
 ## Usage
 
 ```js
-import { multiply } from "react-native-gps-settings";
+import * as React from 'react';
 
-// ...
+import { StyleSheet, View, Text, Button } from 'react-native';
+import { isGPSEnabled, openGPSSettings } from 'react-native-gps-settings';
 
-const result = await multiply(3, 7);
+export default function App() {
+
+  const checkGPSStatus = () => {
+    isGPSEnabled()
+      .then((response) => {
+        if (response == true) {
+          console.log("GPS already enabled")
+        } else {
+          openGPSSettings()
+        }
+      })
+  }
+
+  return (
+    <View style={styles.container}>
+      <Button
+        onPress={checkGPSStatus}
+        title='Check GPS'>
+        <Text>Check GPS</Text>
+      </Button>
+    </View>
+  );
+}
 ```
 
 ## Contributing
